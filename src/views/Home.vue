@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     randColor () {
-      return '#'+(Math.random()*0xFFFFFF<<0).toString(16)
+      return '#' + (Math.random() * 0xFFFFFF << 0).toString(16)
     }
   },
   data: () => ({
@@ -49,7 +49,7 @@ export default {
       labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
       datasets: [
         {
-          backgroundColor: ['#'+(Math.random()*0xFFFFFF<<0).toString(16), '#'+(Math.random()*0xFFFFFF<<0).toString(16), '#'+(Math.random()*0xFFFFFF<<0).toString(16), '#'+(Math.random()*0xFFFFFF<<0).toString(16), '#'+(Math.random()*0xFFFFFF<<0).toString(16), '#'+(Math.random()*0xFFFFFF<<0).toString(16), '#'+(Math.random()*0xFFFFFF<<0).toString(16)],
+          backgroundColor: ['#' + (Math.random() * 0xFFFFFF << 0).toString(16), '#' + (Math.random() * 0xFFFFFF << 0).toString(16), '#' + (Math.random() * 0xFFFFFF << 0).toString(16), '#' + (Math.random() * 0xFFFFFF << 0).toString(16), '#' + (Math.random() * 0xFFFFFF << 0).toString(16), '#' + (Math.random() * 0xFFFFFF << 0).toString(16), '#' + (Math.random() * 0xFFFFFF << 0).toString(16)],
           data: [10, 20, 25, 16, 18, 15, 22]
         }
       ]
@@ -58,7 +58,7 @@ export default {
       labels: ['Mauricio', 'José', 'Fernanda', 'Jesus', 'Mayra', 'Angel'],
       datasets: [
         {
-          backgroundColor: ['#'+(Math.random()*0xFFFFFF<<0).toString(16), '#'+(Math.random()*0xFFFFFF<<0).toString(16), '#'+(Math.random()*0xFFFFFF<<0).toString(16), '#'+(Math.random()*0xFFFFFF<<0).toString(16), '#'+(Math.random()*0xFFFFFF<<0).toString(16), '#'+(Math.random()*0xFFFFFF<<0).toString(16)],
+          backgroundColor: ['#' + (Math.random() * 0xFFFFFF << 0).toString(16), '#' + (Math.random() * 0xFFFFFF << 0).toString(16), '#' + (Math.random() * 0xFFFFFF << 0).toString(16), '#' + (Math.random() * 0xFFFFFF << 0).toString(16), '#' + (Math.random() * 0xFFFFFF << 0).toString(16), '#' + (Math.random() * 0xFFFFFF << 0).toString(16)],
           data: [4, 5, 2, 3, 5, 8]
         }
       ]

@@ -32,16 +32,35 @@
         large
         dark
         class="submit-btn"
+        @click="dialog = true"
       >
         Agregar Visita
       </v-btn>
     </v-footer>
+
+    <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
+      <v-card class="visits-card">
+        <v-toolbar dark class="submit-btn">
+          <v-btn icon dark @click="dialog = false">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+          <v-toolbar-title>AGREGANDO EQUIPO</v-toolbar-title>
+          <v-spacer></v-spacer>
+        </v-toolbar>
+        <CreateVisit v-if="dialog" @ending="dialog = false"></CreateVisit>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
 <script>
+import CreateVisit from './CreateVisit'
 export default {
+  components: {
+    CreateVisit
+  },
   data: () => ({
+    dialog: false,
     search: '',
     headers: [
       { text: 'Cliente', align: 'left', value: 'user' },

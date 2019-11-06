@@ -17,7 +17,7 @@
             @keyup.enter.native="login"
           ></v-text-field>
         </v-flex>
-        
+
         <v-flex xs12 class="text-center" pa-2>
           <v-text-field
             label="Contraseña"

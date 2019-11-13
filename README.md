@@ -7,7 +7,9 @@ npm install
 
 ### Compiles and hot-reloads for development
 ```
-npm run serve
+npm run serve (runs for web)
+npm run cordova-serve-android (runs for Android devices)
+npm run cordova-serve-ios (runs for iOS devices)
 ```
 
 ### Compiles and minifies for production

@@ -51,8 +51,8 @@
         <p v-if="currentDevice !== null">{{ currentDevice.manufacturer }} {{ currentDevice.model }} {{ currentDevice.description }}</p>
         <p>Tipo de mantenimiento: {{ supportType }}</p>
         <p>Descripción: {{ supportDetail }}</p>
-        <v-btn color="primary" @click="prepNextDevice">Siguiente equipo</v-btn>
-        <v-btn text @click="endVisit">Finalizar</v-btn>
+        <v-btn :loading="isSending" color="primary" @click="prepNextDevice">Siguiente equipo</v-btn>
+        <v-btn :loading="isSending" text @click="endVisit">Finalizar</v-btn>
       </v-stepper-content>
     </v-stepper>
 
@@ -91,6 +91,7 @@ export default {
     supportTypes: ['Preventivo', 'Correctivo'],
     supportType: '',
     supportDetail: '',
+    coordinates: {},
     startDate: Date()
   }),
   methods: {
@@ -165,6 +166,7 @@ export default {
         }
       }
       var visit = {
+        coordinates: this.coordinates,
         clientId: this.client.id,
         startDate: this.startDate,
         endDate: Date(),
@@ -179,7 +181,16 @@ export default {
     },
     endVisit () {
       this.addDevice()
-      this.dialog = true
+      this.isSending = true
+      this.$getLocation()
+        .then(coordinates => {
+          this.coordinates = {
+            lat: coordinates.lat,
+            lng: coordinates.lng
+          }
+          this.dialog = true
+          this.isSending = false
+        })
     }
   },
   created () {

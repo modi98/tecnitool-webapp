@@ -6,12 +6,14 @@ import vuetify from './plugins/vuetify'
 import VueCookies from 'vue-cookies'
 import VueResource from 'vue-resource'
 import VueQrcodeReader from 'vue-qrcode-reader'
+import VueGeolocation from 'vue-browser-geolocation'
 
 Vue.config.productionTip = false
 
 Vue.use(VueCookies)
 Vue.use(VueResource)
 Vue.use(VueQrcodeReader)
+Vue.use(VueGeolocation)
 
 Vue.http.options.root = 'http://192.168.15.13:9000/'
 

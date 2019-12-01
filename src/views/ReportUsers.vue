@@ -1,8 +1,8 @@
 <template>
   <v-container fluid>
-    <v-card class="elevation-8 visits-card" dark>
+    <v-card class="elevation-8 users-card" dark>
       <v-card-title>
-        Visitas
+        Usuarios
         <div class="flex-grow-1"></div>
         <v-text-field
           v-model="search"
@@ -11,12 +11,12 @@
           hide-details
         ></v-text-field>
       </v-card-title>
-      <v-card-text class="visits-card">
+      <v-card-text class="users-card">
         <v-data-table
-          class="visits-card"
+          class="users-card"
           hide-default-footer
           :headers="headers"
-          :items="visits"
+          :items="users"
           :search="search"
           :loading="isFetching"
         ></v-data-table>
@@ -35,48 +35,46 @@
         class="submit-btn"
         @click="dialog = true"
       >
-        Agregar Visita
+        Agregar usuario
       </v-btn>
     </v-footer>
 
     <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
-      <v-card class="visits-card">
+      <v-card class="users-card">
         <v-toolbar dark class="submit-btn">
           <v-btn icon dark @click="dialog = false">
             <v-icon>mdi-close</v-icon>
           </v-btn>
-          <v-toolbar-title>AGREGANDO VISITA</v-toolbar-title>
+          <v-toolbar-title>AGREGANDO USUARIO</v-toolbar-title>
           <v-spacer></v-spacer>
         </v-toolbar>
-        <CreateVisit v-if="dialog" @ending="dialog = false"></CreateVisit>
+        <CreateUser v-if="dialog" @ending="fetchUsers"></CreateUser>
       </v-card>
     </v-dialog>
   </v-container>
 </template>
 
 <script>
-import CreateVisit from './CreateVisit'
+import CreateUser from './CreateUser'
 export default {
   components: {
-    CreateVisit
+    CreateUser
   },
   data: () => ({
     dialog: false,
     isFetching: false,
     search: '',
     headers: [
-      { text: 'Cliente', align: 'left', value: 'clientId.name' },
-      { text: 'Técnico', value: 'createdBy.name' },
-      { text: '# equipos', value: 'maintenance.length' },
-      { text: 'Latitud', value: 'coordinates.lat' },
-      { text: 'Longitud', value: 'coordinates.lng' },
-      { text: 'Fecha de inicio', value: 'startDate' },
-      { text: 'Fecha de finalización', value: 'endDate' }
+      { text: 'Nombre', align: 'left', value: 'name' },
+      { text: 'Correo electrónico', value: 'email' },
+      { text: 'Rol', value: 'role' },
+      { text: 'Fecha de registro', value: 'createdAt' }
     ],
-    visits: []
+    users: []
   }),
   methods: {
-    fetchVisits () {
+    fetchUsers () {
+      this.dialog = false
       this.isFetching = true
       var options = {
         headers: {
@@ -84,15 +82,15 @@ export default {
           'Authorization': 'Bearer ' + this.$cookies.get('authToken')
         }
       }
-      this.$http.get('visits', options).then(response => {
+      this.$http.get('users', options).then(response => {
         this.isFetching = false
-        this.visits = response.data
+        this.users = response.data
         console.log(response.data)
       })
     }
   },
   created () {
-    this.fetchVisits()
+    this.fetchUsers()
   }
 }
 </script>

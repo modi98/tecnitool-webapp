@@ -30,7 +30,7 @@
             <v-list-item-title>Clientes</v-list-item-title>
           </v-list-item>
 
-          <v-list-item @click="$router.push('/users')">
+          <v-list-item v-if="user.role === 'admin'" @click="$router.push('/reportUsers')">
             <v-list-item-title>Usuarios</v-list-item-title>
           </v-list-item>
 
@@ -81,7 +81,9 @@ export default {
     },
     checkAuth () {
       if (this.$cookies.isKey('authToken')) {
-        this.user = true
+        console.log(this.$cookies.get('user'))
+        this.user = this.$cookies.get('user')
+        
       } else {
         this.$router.push('/')
       }
@@ -120,5 +122,9 @@ export default {
 
 .clients-card {
   background-color: #007EC8 !important;
+}
+
+.users-card {
+  background-color: rgb(202, 78, 88) !important;
 }
 </style>

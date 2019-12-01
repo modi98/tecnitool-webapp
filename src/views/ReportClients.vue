@@ -13,12 +13,17 @@
       </v-card-title>
       <v-card-text>
         <v-data-table
+          dense
+          :loading="isFetching"
           class="clients-card"
+          item-key="id"
           hide-default-footer
           :headers="headers"
           :items="clients"
           :search="search"
-        ></v-data-table>
+          @click:row="printRow"
+        >
+        </v-data-table>
       </v-card-text>
     </v-card>
 
@@ -47,7 +52,7 @@
           <v-toolbar-title>AGREGANDO CLIENTE</v-toolbar-title>
           <v-spacer></v-spacer>
         </v-toolbar>
-        <CreateClient v-if="dialog" @ending="dialog = false"></CreateClient>
+        <CreateClient v-if="dialog" @ending="endCreateClient"></CreateClient>
       </v-card>
     </v-dialog>
   </v-container>
@@ -61,6 +66,7 @@ export default {
   },
   data: () => ({
     search: '',
+    isFetching: true,
     dialog: false,
     headers: [
       { text: 'Nombre', align: 'left', value: 'name' },
@@ -73,9 +79,15 @@ export default {
     clients: []
   }),
   methods: {
+    printRow (item) {
+      console.log(item)
+    },
+    endCreateClient () {
+      this.dialog = false
+      this.fetchClients()
+    },
     fetchClients () {
-      this.isSending = true
-      var vm = this
+      this.isFetching = true
       var options = {
         headers: {
           'Content-Type': 'application/json',
@@ -83,7 +95,7 @@ export default {
         }
       }
       this.$http.get('clients', options).then(response => {
-        this.isSending = false
+        this.isFetching = false
         this.clients = response.data
         console.log(response.data)
       })

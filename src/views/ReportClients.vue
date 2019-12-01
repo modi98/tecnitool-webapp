@@ -66,36 +66,31 @@ export default {
       { text: 'Nombre', align: 'left', value: 'name' },
       { text: 'Teléfono', value: 'phone' },
       { text: 'Correo', value: 'email' },
-      { text: 'Dirección', value: 'direction' },
+      { text: 'Dirección', value: 'address' },
       { text: 'Empresa', value: 'company' },
       { text: 'Fecha de registro', value: 'createdAt' }
     ],
-    clients: [
-      {
-        name: 'Abigail Sosa',
-        phone: '812423523',
-        email: 'a@a.aa',
-        direction: 'Las Torres 1268',
-        company: 'Tecmilenio',
-        createdAt: '10-Sep-19 20:00:00'
-      },
-      {
-        name: 'Jose Hernandez',
-        phone: '6345622346',
-        email: 'a@a.aa',
-        direction: 'Lazaro Cardenas 238',
-        company: 'Steelcase',
-        createdAt: '05-Sep-19 20:00:00'
-      },
-      {
-        name: 'Marcelo Flores',
-        phone: '812423523',
-        email: 'a@a.aa',
-        direction: 'Las Torres 1268',
-        company: 'Tecmilenio',
-        createdAt: '10-Sep-19 20:00:00'
+    clients: []
+  }),
+  methods: {
+    fetchClients () {
+      this.isSending = true
+      var vm = this
+      var options = {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + this.$cookies.get('authToken')
+        }
       }
-    ]
-  })
+      this.$http.get('clients', options).then(response => {
+        this.isSending = false
+        this.clients = response.data
+        console.log(response.data)
+      })
+    }
+  },
+  created () {
+    this.fetchClients()
+  }
 }
 </script>

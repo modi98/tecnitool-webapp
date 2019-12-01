@@ -16,8 +16,9 @@
           class="visits-card"
           hide-default-footer
           :headers="headers"
-          :items="clients"
+          :items="visits"
           :search="search"
+          :loading="isFetching"
         ></v-data-table>
       </v-card-text>
     </v-card>
@@ -61,41 +62,37 @@ export default {
   },
   data: () => ({
     dialog: false,
+    isFetching: false,
     search: '',
     headers: [
-      { text: 'Cliente', align: 'left', value: 'user' },
-      { text: 'Técnico', value: 'createdBy' },
-      { text: '# equipos', value: 'numComputers' },
-      { text: 'Coordenadas', value: 'coordinates' },
-      { text: 'Hora de inicio', value: 'startDate' },
-      { text: 'Hora de finalización', value: 'endDate' }
+      { text: 'Cliente', align: 'left', value: 'clientId.name' },
+      { text: 'Técnico', value: 'createdBy.name' },
+      { text: '# equipos', value: 'maintenance.length' },
+      { text: 'Latitud', value: 'coordinates.lat' },
+      { text: 'Longitud', value: 'coordinates.lng' },
+      { text: 'Fecha de inicio', value: 'startDate' },
+      { text: 'Fecha de finalización', value: 'endDate' }
     ],
-    clients: [
-      {
-        user: 'Abigail Sosa',
-        createdBy: 'Mauricio Alvarado',
-        numComputers: 8,
-        coordinates: 'x: 435.352523 y: 163.136215 z: 12.1243521',
-        startDate: '10-Sep-19 20:00:00',
-        endDate: '10-Sep-19 22:00:00'
-      },
-      {
-        user: 'Nicole Fernandez',
-        createdBy: 'Raul Tamez',
-        numComputers: 8,
-        coordinates: 'x: 435.352523 y: 163.136215 z: 12.1243521',
-        startDate: '10-Sep-19 20:00:00',
-        endDate: '10-Sep-19 22:00:00'
-      },
-      {
-        user: 'Angel Figueroa',
-        createdBy: 'Mauricio Alvarado',
-        numComputers: 8,
-        coordinates: 'x: 435.352523 y: 163.136215 z: 12.1243521',
-        startDate: '10-Sep-19 20:00:00',
-        endDate: '10-Sep-19 22:00:00'
+    visits: []
+  }),
+  methods: {
+    fetchVisits () {
+      this.isFetching = true
+      var options = {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + this.$cookies.get('authToken')
+        }
       }
-    ]
-  })
+      this.$http.get('visits', options).then(response => {
+        this.isFetching = false
+        this.visits = response.data
+        console.log(response.data)
+      })
+    }
+  },
+  created () {
+    this.fetchVisits()
+  }
 }
 </script>

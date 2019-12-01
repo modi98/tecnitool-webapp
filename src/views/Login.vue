@@ -30,6 +30,10 @@
           ></v-text-field>
         </v-flex>
 
+        <v-flex xs12 class="text-center" pa-2>
+          <p><font color="red">{{ errorMessage }}</font></p>
+        </v-flex>
+
         <v-flex xs12 pa-2 class="text-center">
           <v-btn
             large
@@ -71,17 +75,27 @@ export default {
     valid: false,
     isSending: false,
     email: '',
-    password: ''
+    password: '',
+    errorMessage: ''
   }),
   methods: {
     login () {
       this.isSending = true
       var vm = this
-      setTimeout(function () {
+      var options = {
+        headers: {
+          'Authorization': 'Basic ' + btoa(this.email + ':' + this.password)
+        }
+      }
+      this.$http.post('auth', {}, options).then(response => {
         vm.isSending = false
-        vm.$cookies.set('authToken', 'Hello', '30d')
+        vm.$cookies.set('authToken', response.data.token, '30d')
+        vm.$cookies.set('user', JSON.stringify(response.data.user))
         vm.$router.go(0)
-      }, 5000)
+      }, response => {
+        vm.isSending = false
+        vm.errorMessage = response.statusText
+      })
     }
   }
 }

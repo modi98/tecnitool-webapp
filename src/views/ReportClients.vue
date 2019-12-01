@@ -32,17 +32,36 @@
         large
         dark
         class="submit-btn"
+        @click="dialog = true"
       >
         Agregar Cliente
       </v-btn>
     </v-footer>
+
+    <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
+      <v-card class="visits-card">
+        <v-toolbar dark class="submit-btn">
+          <v-btn icon dark @click="dialog = false">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+          <v-toolbar-title>AGREGANDO CLIENTE</v-toolbar-title>
+          <v-spacer></v-spacer>
+        </v-toolbar>
+        <CreateClient v-if="dialog" @ending="dialog = false"></CreateClient>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
 <script>
+import CreateClient from './CreateClient'
 export default {
+  components: {
+    CreateClient
+  },
   data: () => ({
     search: '',
+    dialog: false,
     headers: [
       { text: 'Nombre', align: 'left', value: 'name' },
       { text: 'Teléfono', value: 'phone' },

@@ -77,10 +77,11 @@ export default {
   methods: {
     logout () {
       this.$cookies.remove('authToken')
+      this.user = null
       this.$router.go(0)
     }
   },
-  created() {
+  created () {
     if (this.$cookies.isKey('authToken')) {
       this.user = true
     } else {

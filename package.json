@@ -27,6 +27,7 @@
     "vue-browser-geolocation": "^1.8.0",
     "vue-chartjs": "^3.4.2",
     "vue-cookies": "^1.5.13",
+    "vue-moment": "^4.0.0",
     "vue-qrcode-reader": "^2.1.1",
     "vue-resource": "^1.5.1",
     "vue-router": "^3.0.3",

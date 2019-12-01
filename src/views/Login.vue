@@ -91,7 +91,7 @@ export default {
         vm.isSending = false
         vm.$cookies.set('authToken', response.data.token, '30d')
         vm.$cookies.set('user', JSON.stringify(response.data.user))
-        vm.$router.go(0)
+        this.$emit('ending', false)
       }, response => {
         vm.isSending = false
         vm.errorMessage = response.statusText

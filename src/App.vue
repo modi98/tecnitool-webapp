@@ -55,7 +55,7 @@
       <v-flex pa-5>
         <v-card class="elevation-8 mx-auto" max-width="600">
           <v-card-text>
-            <Login/>
+            <Login @ending="checkAuth" />
           </v-card-text>
         </v-card>
       </v-flex>
@@ -78,15 +78,17 @@ export default {
     logout () {
       this.$cookies.remove('authToken')
       this.user = null
-      this.$router.go(0)
+    },
+    checkAuth () {
+      if (this.$cookies.isKey('authToken')) {
+        this.user = true
+      } else {
+        this.$router.push('/')
+      }
     }
   },
   created () {
-    if (this.$cookies.isKey('authToken')) {
-      this.user = true
-    } else {
-      this.$router.push('/')
-    }
+    this.checkAuth()
   }
 }
 </script>

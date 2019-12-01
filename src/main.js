@@ -10,6 +10,7 @@ import VueGeolocation from 'vue-browser-geolocation'
 
 Vue.config.productionTip = false
 
+Vue.use(require('vue-moment'))
 Vue.use(VueCookies)
 Vue.use(VueResource)
 Vue.use(VueQrcodeReader)

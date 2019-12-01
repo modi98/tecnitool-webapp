@@ -83,7 +83,6 @@ export default {
       if (this.$cookies.isKey('authToken')) {
         console.log(this.$cookies.get('user'))
         this.user = this.$cookies.get('user')
-        
       } else {
         this.$router.push('/')
       }

@@ -109,7 +109,7 @@ export default {
       var dougnutLabels = []
       var dougnutColors = []
       var dougnutValues = []
-      Object.keys(usersData).forEach(function(key) {
+      Object.keys(usersData).forEach(function (key) {
         dougnutLabels.push(key)
         dougnutValues.push(usersData[key])
         dougnutColors.push('#' + (Math.random() * 0xFFFFFF << 0).toString(16))
